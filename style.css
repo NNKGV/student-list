@@ -30,7 +30,7 @@ h1 {
   color: #2c3e50;
 }
 
-.upload, .search, .actions {
+.upload, .search, .actions, .controls {
   margin: 15px 0;
   display: flex;
   flex-wrap: wrap;
@@ -43,13 +43,19 @@ label {
   font-weight: 600;
 }
 
-input[type="file"], input[type="text"] {
+input[type="file"], input[type="text"], input[type="number"] {
   padding: 10px 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 15px;
   flex: 1;
   min-width: 220px;
+}
+
+input[type="number"] {
+  width: 120px;
+  text-align: center;
+  flex: none;
 }
 
 button {
@@ -90,6 +96,12 @@ th {
 
 tr:nth-child(even) {
   background: #f9f9f9;
+}
+
+/* Highlight cho top N */
+tr.highlight {
+  background: #fff7d6 !important;
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {
