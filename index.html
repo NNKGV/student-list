@@ -2,24 +2,46 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Top 30 học sinh điểm cao nhất</title>
+  <title>LICOAK</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h2>Upload file Excel danh sách học sinh</h2>
+    <!-- Logo -->
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
 
-    <input type="file" id="fileInput" accept=".xlsx,.xls"><br><br>
+    <h1>Danh sách học sinh</h1>
 
-    <label for="search">Tìm kiếm tên: </label>
-    <input type="text" id="search" placeholder="Nhập tên..." onkeyup="filterTable()">
+    <div class="upload">
+      <input type="file" id="fileInput" accept=".xlsx,.xls">
+    </div>
 
-    <button onclick="exportExcel()">Xuất file Top 30</button>
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên...">
+    </div>
 
-    <div id="result"></div>
+    <div class="actions">
+      <button id="exportBtn">Xuất file Top 30</button>
+    </div>
+
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ và tên</th>
+          <th>Điểm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- dữ liệu sẽ được thêm bằng JS -->
+      </tbody>
+    </table>
   </div>
 
+  <!-- Thư viện XLSX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
