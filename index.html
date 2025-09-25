@@ -4,21 +4,22 @@
   <meta charset="UTF-8">
   <title>Top 30 học sinh điểm cao nhất</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
   <div class="container">
     <h2>Upload file Excel danh sách học sinh</h2>
 
-    <input type="file" id="fileInput" accept=".xlsx,.xls">
-    <br><br>
+    <input type="file" id="fileInput" accept=".xlsx,.xls"><br><br>
+
     <label for="search">Tìm kiếm tên: </label>
     <input type="text" id="search" placeholder="Nhập tên..." onkeyup="filterTable()">
+
+    <button onclick="exportExcel()">Xuất file Top 30</button>
 
     <div id="result"></div>
   </div>
 
-  <!-- Thư viện đọc Excel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
