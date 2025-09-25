@@ -23,8 +23,16 @@
     </div>
 
     <div class="actions">
-      <button id="exportBtn">Xuất file Top 30</button>
+      <button id="exportBtn">Xuất file Top N</button>
     </div>
+
+    <!-- Phần mới thêm -->
+    <div class="controls">
+      <label for="topInput">Nhập số lượng top:</label>
+      <input type="number" id="topInput" min="1" value="30">
+      <button id="sortBtn">Sắp xếp & Lấy Top N</button>
+    </div>
+    <!-- hết phần mới thêm -->
 
     <table id="studentTable">
       <thead>
