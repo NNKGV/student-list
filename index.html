@@ -2,24 +2,90 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>nnkgvt</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Top 30 học sinh điểm cao</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Upload file Excel danh sách học sinh</h2>
+  <h2>Upload file Excel danh sách học sinh</h2>
+  <input type="file" id="upload" accept=".xlsx, .xls" />
+  <button onclick="exportExcel()">Xuất file Top 30</button>
 
-    <input type="file" id="fileInput" accept=".xlsx,.xls">
-    <br><br>
-    <label for="search">Tìm kiếm tên: </label>
-    <input type="text" id="search" placeholder="Nhập tên..." onkeyup="filterTable()">
+  <table border="1" id="table" style="margin-top:20px; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên</th>
+        <th>Điểm</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-    <div id="result"></div>
-  </div>
+<script>
+let top30Data = [];
 
-  <!-- Thư viện đọc Excel -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="script.js"></script>
+document.getElementById('upload').addEventListener('change', handleFile, false);
+
+function handleFile(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+    // Giả sử file gốc có cấu trúc: Tên | Điểm
+    let students = [];
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][0] && rows[i][1]) {
+        students.push({ name: rows[i][0], score: Number(rows[i][1]) });
+      }
+    }
+
+    // Sắp xếp giảm dần theo điểm
+    students.sort((a, b) => b.score - a.score);
+
+    // Lấy top 30
+    top30Data = students.slice(0, 30);
+
+    // Hiển thị ra bảng
+    const tbody = document.querySelector('#table tbody');
+    tbody.innerHTML = '';
+    top30Data.forEach((s, index) => {
+      const tr = `<tr>
+        <td>${index + 1}</td>
+        <td>${s.name}</td>
+        <td>${s.score}</td>
+      </tr>`;
+      tbody.innerHTML += tr;
+    });
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function exportExcel() {
+  if (top30Data.length === 0) {
+    alert("Chưa có dữ liệu để xuất!");
+    return;
+  }
+
+  // Thêm cột STT
+  const exportData = top30Data.map((s, index) => ({
+    STT: index + 1,
+    Tên: s.name,
+    Điểm: s.score
+  }));
+
+  // Tạo sheet và workbook
+  const ws = XLSX.utils.json_to_sheet(exportData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Top30");
+
+  // Xuất file
+  XLSX.writeFile(wb, "Top30HocSinh.xlsx");
+}
+</script>
 </body>
 </html>
-
