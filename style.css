@@ -23,20 +23,10 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-.logo {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.logo img {
-  max-width: 180px;
-  height: auto;
-}
-
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 28px;
+  font-size: 26px;
   color: #2c3e50;
 }
 
@@ -47,6 +37,10 @@ h1 {
   gap: 12px;
   align-items: center;
   justify-content: center;
+}
+
+label {
+  font-weight: 600;
 }
 
 input[type="file"], input[type="text"] {
@@ -99,6 +93,6 @@ tr:nth-child(even) {
 }
 
 @media (max-width: 600px) {
-  h1 { font-size: 22px; }
+  h1 { font-size: 20px; }
   th, td { padding: 8px 10px; font-size: 14px; }
 }
