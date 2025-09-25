@@ -2,24 +2,24 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>LICOAK</title>
+  <title>Danh sách học sinh</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Favicon (icon trên tab) -->
+  <!-- Icon trên tab -->
   <link rel="icon" type="image/png" href="logo.png">
-  <!-- Nếu bạn có file favicon.ico thì dùng dòng sau -->
-  <!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
 </head>
 <body>
   <div class="container">
-    <h1>Danh sách học sinh</h1>
+    <h1>Danh sách học sinh (sắp xếp theo điểm)</h1>
 
     <div class="upload">
+      <label for="fileInput">Upload file Excel danh sách học sinh</label>
       <input type="file" id="fileInput" accept=".xlsx,.xls">
     </div>
 
     <div class="search">
-      <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên...">
+      <label for="searchInput">Tìm kiếm tên:</label>
+      <input type="text" id="searchInput" placeholder="Nhập tên...">
     </div>
 
     <div class="actions">
