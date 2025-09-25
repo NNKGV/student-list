@@ -1,12 +1,12 @@
 let students = [];
 
 // Đọc file Excel
-document.getElementById("fileInput").addEventListener("change", function(e) {
+document.getElementById("fileInput").addEventListener("change", function (e) {
   let file = e.target.files[0];
   if (!file) return;
 
   let reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     let data = new Uint8Array(e.target.result);
     let workbook = XLSX.read(data, { type: "array" });
 
@@ -35,6 +35,11 @@ function renderTable(data) {
   sorted = sorted.slice(0, 30);
 
   let tbody = document.querySelector("#studentTable tbody");
+  if (!tbody) {
+    console.error("Không tìm thấy <tbody> trong #studentTable");
+    return;
+  }
+
   tbody.innerHTML = "";
   sorted.forEach((s, i) => {
     let tr = document.createElement("tr");
@@ -46,7 +51,9 @@ function renderTable(data) {
 // Lọc theo tên
 function filterTable() {
   const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = students.filter(s => s.name.toLowerCase().includes(keyword));
+  const filtered = students.filter((s) =>
+    s.name.toLowerCase().includes(keyword)
+  );
   renderTable(filtered);
 }
 
