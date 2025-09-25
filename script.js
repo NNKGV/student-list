@@ -29,10 +29,16 @@ document.getElementById("fileInput").addEventListener("change", function (e) {
   reader.readAsArrayBuffer(file);
 });
 
+// Lấy số N từ input
+function getTopN() {
+  const n = parseInt(document.getElementById("topInput").value) || 30;
+  return Math.max(1, n); // ít nhất là 1
+}
+
 // Hiển thị bảng
 function renderTable(data) {
-  let sorted = [...data].sort((a, b) => b.score - a.score);
-  sorted = sorted.slice(0, 30);
+  let n = getTopN();
+  let sorted = [...data].sort((a, b) => b.score - a.score).slice(0, n);
 
   let tbody = document.querySelector("#studentTable tbody");
   if (!tbody) {
@@ -64,8 +70,8 @@ function exportFile() {
     return;
   }
 
-  let sorted = [...students].sort((a, b) => b.score - a.score);
-  sorted = sorted.slice(0, 30);
+  let n = getTopN();
+  let sorted = [...students].sort((a, b) => b.score - a.score).slice(0, n);
 
   let data = [["STT", "Tên", "Điểm"]];
   sorted.forEach((s, i) => {
@@ -74,11 +80,14 @@ function exportFile() {
 
   let worksheet = XLSX.utils.aoa_to_sheet(data);
   let workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Top30");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Top" + n);
 
-  XLSX.writeFile(workbook, "Top30HocSinh.xlsx");
+  XLSX.writeFile(workbook, `Top${n}HocSinh.xlsx`);
 }
 
 // Gắn sự kiện
 document.getElementById("exportBtn").addEventListener("click", exportFile);
 document.getElementById("searchInput").addEventListener("input", filterTable);
+document.getElementById("sortBtn").addEventListener("click", function () {
+  renderTable(students);
+});
